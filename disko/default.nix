@@ -7,7 +7,7 @@
         content = {
           type = "gpt";
           partitions = {
-            boot = {
+            biosboot = {
               size = "1M";
               type = "EF02";
             };
@@ -22,7 +22,7 @@
             };
             swap = {
               size = "1G";
-              #type = "8200";
+              type = "8200";
               content = {
                 type = "swap";
                 randomEncryption = true;
