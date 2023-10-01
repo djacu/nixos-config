@@ -50,6 +50,7 @@
           checksum = "edonr";
           compression = "zstd";
           dnodesize = "auto";
+          # encryption does not appear to work in vm test; only use on real system
           #encryption = "aes-256-gcm";
           #keyformat = "passphrase";
           #keylocation = "file:///tmp/secret.key"; # must be set during initial installation step
@@ -64,7 +65,8 @@
           autotrim = "on";
         };
         #postCreateHook = ''
-        #  zfs set keylocation="prompt" $name;
+        #  # last argument must be same as as the pool attrname
+        #  zfs set keylocation="prompt" "rpool";
         #'';
 
         datasets = {
