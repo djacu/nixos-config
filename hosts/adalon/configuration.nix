@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: {
-  networking.hostId = "00000000";
+  networking.hostId = "76b05211";
   services.zfs.autoScrub.enable = true;
   boot = {
     loader = {
