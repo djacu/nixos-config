@@ -113,5 +113,6 @@
     print(machine.succeed("pwd"))
     print(machine.succeed("vim --version"))
     print(machine.succeed("lslogins bakerdn"))
+    print(machine.succeed("cat /etc/nix/nix.conf"))
   '';
 }
