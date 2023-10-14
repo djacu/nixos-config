@@ -34,7 +34,7 @@
         disko.nixosModules.default
         ./disko/default.nix
         ./hosts/adalon/configuration.nix
-        ./users/bakerdn.nix
+        ./users/bakerdn
       ];
 
       specialArgs = {
