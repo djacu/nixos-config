@@ -7,6 +7,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-compat.url = "github:edolstra/flake-compat";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
@@ -19,10 +23,11 @@
     nixpkgs,
     disko,
     flake-compat,
+    home-manager,
     nixos-hardware,
     nixpkgs-wayland,
     nur,
-  }: let
+  } @ inputs: let
     overlays = [
       nixpkgs-wayland.overlay
       nur.overlay
@@ -45,6 +50,7 @@
       modules = [
         disko.nixosModules.default
         nixos-hardware.nixosModules.framework-11th-gen-intel
+        home-manager.nixosModules.home-manager
         ./hosts/adalon/configuration.nix
         ./users/bakerdn
       ];

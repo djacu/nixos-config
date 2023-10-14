@@ -8,4 +8,10 @@
       "networkManager"
     ];
   };
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.bakerdn = import ./home.nix;
+  };
 }
