@@ -6,28 +6,40 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
+    nur.url = "github:nix-community/NUR";
   };
   outputs = {
     self,
     nixpkgs,
     disko,
     nixpkgs-wayland,
+    nur,
   }: let
     overlays = [
       nixpkgs-wayland.overlay
+      nur.overlay
     ];
+
+    pkgs = import nixpkgs {
+      inherit system overlays;
+      config.allowUnfree = true;
+    };
+
+    system = "x86_64-linux";
   in {
     nixosConfiguration.adalon = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+      inherit system;
+
       modules = [
         disko.nixosModules.default
         ./disko/default.nix
         ./hosts/adalon/configuration.nix
         ./users/bakerdn.nix
       ];
+
       specialArgs = {
         device = "/dev/disk/by-id/nvme-WD_BLACK_SN850_1TB_204178806629";
-        inherit nixpkgs overlays;
+        inherit nixpkgs;
       };
     };
   };
