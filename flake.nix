@@ -1,5 +1,5 @@
 {
-# nix build .#nixosConfiguration.adalon.config.system.build.installTest -L
+  # nix build .#nixosConfiguration.adalon.config.system.build.installTest -L
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     disko.url = "github:nix-community/disko/";
