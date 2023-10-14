@@ -14,18 +14,7 @@
       modules = [
         disko.nixosModules.default
         ./disko/default.nix
-        ({config, ...}: {
-          networking.hostId = "00000000";
-          services.zfs.autoScrub.enable = true;
-          boot.loader = {
-            systemd-boot.enable = true;
-            efi.canTouchEfiVariables = true;
-          };
-          boot = {
-            kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-            supportedFilesystems = ["zfs"];
-          };
-        })
+        ./hosts/adalon/configuration.nix
       ];
       specialArgs = {device = "/dev/disk/by-id/nvme-WD_BLACK_SN850_1TB_204178806629";};
     };
