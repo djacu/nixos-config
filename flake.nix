@@ -2,10 +2,14 @@
   # nix build .#nixosConfiguration.adalon.config.system.build.installTest -L
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    disko.url = "github:nix-community/disko/";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
-    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
-    nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
+    disko = {
+      url = "github:nix-community/disko/";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nur.url = "github:nix-community/NUR";
   };
   outputs = {
