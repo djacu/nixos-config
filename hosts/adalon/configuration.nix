@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   networking.hostId = "00000000";
   services.zfs.autoScrub.enable = true;
   boot = {
@@ -9,4 +13,8 @@
     kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
     supportedFilesystems = ["zfs"];
   };
+  environment.systemPackages = with pkgs; [
+    vim
+    wget
+  ];
 }
