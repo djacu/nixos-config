@@ -7,6 +7,17 @@
     ../common/nix.nix
   ];
 
+  boot = {
+    kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+
+    supportedFilesystems = ["zfs"];
+  };
+
   environment.systemPackages = with pkgs; [
     alejandra
     vim
@@ -19,15 +30,6 @@
   services.openssh.enable = true;
 
   services.zfs.autoScrub.enable = true;
-
-  boot = {
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-    kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-    supportedFilesystems = ["zfs"];
-  };
 
   time.timeZone = "America/Los_Angeles";
 
