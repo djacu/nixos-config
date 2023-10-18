@@ -115,5 +115,6 @@
     print(machine.succeed("lslogins bakerdn"))
     print(machine.succeed("cat /etc/nix/nix.conf"))
     print(machine.succeed("alejandra -V"))
+    print(machine.succeed("nmcli --version"))
   '';
 }
