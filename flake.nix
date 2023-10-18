@@ -6,6 +6,7 @@
       url = "github:nix-community/disko/";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-hardware.url = "github:nixos/nixos-hardware/master";
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -16,6 +17,7 @@
     self,
     nixpkgs,
     disko,
+    nixos-hardware,
     nixpkgs-wayland,
     nur,
   }: let
@@ -36,6 +38,7 @@
 
       modules = [
         disko.nixosModules.default
+        nixos-hardware.nixosModules.framework
         ./disko/default.nix
         ./hosts/adalon/configuration.nix
         ./users/bakerdn
