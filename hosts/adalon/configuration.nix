@@ -23,4 +23,6 @@
     kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
     supportedFilesystems = ["zfs"];
   };
+
+  system.stateVersion = "23.11";
 }
