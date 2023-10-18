@@ -1,22 +1,20 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   imports = [
     ../common/nix.nix
   ];
 
-  boot = {
-    kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-
-    supportedFilesystems = ["zfs"];
-  };
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/boot";
+  boot.supportedFilesystems = ["zfs"];
+  boot.zfs.devNodes = lib.mkDefault "/dev/disk/by-id";
 
   environment.systemPackages = with pkgs; [
     alejandra
