@@ -33,7 +33,7 @@
 
     system = "x86_64-linux";
   in {
-    nixosConfiguration.adalon = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.adalon = nixpkgs.lib.nixosSystem {
       inherit system;
 
       modules = [
