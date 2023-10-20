@@ -108,4 +108,13 @@
       };
     };
   };
+  disko.tests.extraChecks = ''
+    print("HIIIIIIIIIIIIIIIIIIII")
+    print(machine.succeed("pwd"))
+    print(machine.succeed("vim --version"))
+    print(machine.succeed("lslogins bakerdn"))
+    print(machine.succeed("cat /etc/nix/nix.conf"))
+    print(machine.succeed("alejandra -V"))
+    print(machine.succeed("nmcli --version"))
+  '';
 }

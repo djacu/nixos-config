@@ -1,33 +1,53 @@
 {
-# nix build .#nixosConfiguration.adalon.config.system.build.installTest -L
+  # nix build .#nixosConfiguration.adalon.config.system.build.installTest -L
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    disko.url = "github:nix-community/disko/";
+    disko = {
+      url = "github:nix-community/disko/";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos-hardware.url = "github:nixos/nixos-hardware/master";
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nur.url = "github:nix-community/NUR";
   };
   outputs = {
     self,
     nixpkgs,
     disko,
-  }: {
-    nixosConfiguration.adalon = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+    nixos-hardware,
+    nixpkgs-wayland,
+    nur,
+  }: let
+    overlays = [
+      nixpkgs-wayland.overlay
+      nur.overlay
+    ];
+
+    pkgs = import nixpkgs {
+      inherit system overlays;
+      config.allowUnfree = true;
+    };
+
+    system = "x86_64-linux";
+  in {
+    nixosConfigurations.adalon = nixpkgs.lib.nixosSystem {
+      inherit system;
+
       modules = [
         disko.nixosModules.default
+        nixos-hardware.nixosModules.framework
         ./disko/default.nix
-        ({config, ...}: {
-          networking.hostId = "00000000";
-          services.zfs.autoScrub.enable = true;
-          boot.loader = {
-            systemd-boot.enable = true;
-            efi.canTouchEfiVariables = true;
-          };
-          boot = {
-            kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-            supportedFilesystems = ["zfs"];
-          };
-        })
+        ./hosts/adalon/configuration.nix
+        ./users/bakerdn
       ];
-      specialArgs = {device = "/dev/disk/by-id/nvme-WD_BLACK_SN850_1TB_204178806629";};
+
+      specialArgs = {
+        device = "/dev/disk/by-id/nvme-WD_BLACK_SN850_1TB_204178806629";
+        inherit nixpkgs;
+      };
     };
   };
 }
