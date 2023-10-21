@@ -1,7 +1,7 @@
 {
   disko.devices = {
     disk = {
-      x = {
+      disk1 = {
         type = "disk";
         device = "/dev/disk/by-id/nvme-WD_BLACK_SN850_1TB_204178806629";
         content = {
@@ -34,10 +34,18 @@
           compression = "lz4";
           "com.sun:auto-snapshot" = "false";
         };
-        mountpoint = "/";
+        # mountpoint = "/";
         postCreateHook = "zfs snapshot zroot@blank";
 
         datasets = {
+          root = {
+            type = "zfs_fs";
+            mountpoint = "/";
+            postCreateHook = ''
+              zfs snapshot zroot/root@empty
+            '';
+          };
+
           zfs_fs = {
             type = "zfs_fs";
             mountpoint = "/zfs_fs";
