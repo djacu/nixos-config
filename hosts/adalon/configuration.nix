@@ -6,6 +6,7 @@
 }: {
   imports = [
     ../common/nix.nix
+    ./disko-config.nix
   ];
 
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
