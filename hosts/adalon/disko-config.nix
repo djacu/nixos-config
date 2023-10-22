@@ -34,7 +34,7 @@
           compression = "lz4";
           "com.sun:auto-snapshot" = "false";
         };
-        # mountpoint = "/";
+        mountpoint = "none";
         postCreateHook = "zfs snapshot zroot@blank";
 
         datasets = {
@@ -46,19 +46,22 @@
             '';
           };
 
-          zfs_fs = {
+          home = {
             type = "zfs_fs";
-            mountpoint = "/zfs_fs";
+            mountpoint = "/home";
             options."com.sun:auto-snapshot" = "true";
           };
-          zfs_unmounted_fs = {
+
+          nix = {
             type = "zfs_fs";
-            options.mountpoint = "none";
+            mountpoint = "/nix";
+            options."com.sun:auto-snapshot" = "true";
           };
-          zfs_legacy_fs = {
+
+          persist = {
             type = "zfs_fs";
-            options.mountpoint = "legacy";
-            mountpoint = "/zfs_legacy_fs";
+            mountpoint = "/persist";
+            options."com.sun:auto-snapshot" = "true";
           };
         };
       };
