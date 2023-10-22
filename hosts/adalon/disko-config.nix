@@ -31,10 +31,10 @@
       zroot = {
         type = "zpool";
         rootFsOptions = {
+          canmount = "off";
           compression = "lz4";
           "com.sun:auto-snapshot" = "false";
         };
-        mountpoint = "none";
         postCreateHook = "zfs snapshot zroot@blank";
 
         datasets = {
