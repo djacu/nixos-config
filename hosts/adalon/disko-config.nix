@@ -31,40 +31,49 @@
       zroot = {
         type = "zpool";
         rootFsOptions = {
+          canmount = "off";
           compression = "lz4";
           "com.sun:auto-snapshot" = "false";
         };
-        mountpoint = "/";
-        postCreateHook = "zfs snapshot zroot@empty";
+        mountpoint = null;
+        # postCreateHook = "zfs snapshot zroot@empty";
 
         datasets = {
           root = {
             type = "zfs_fs";
-            options.canmount = "off";
-            postCreateHook = ''
-              zfs snapshot zroot/root@empty
-            '';
+            mountpoint = "/";
+            options.mountpoint = "legacy";
+            # postCreateHook = ''
+            #   zfs snapshot zroot/root@empty
+            # '';
           };
 
           home = {
             type = "zfs_fs";
             mountpoint = "/home";
-            options."com.sun:auto-snapshot" = "true";
+            options.mountpoint = "legacy";
+            # options."com.sun:auto-snapshot" = "true";
           };
 
           nix = {
             type = "zfs_fs";
             mountpoint = "/nix";
-            options."com.sun:auto-snapshot" = "true";
+            options.mountpoint = "legacy";
           };
 
           persist = {
             type = "zfs_fs";
             mountpoint = "/persist";
-            options."com.sun:auto-snapshot" = "true";
+            options.mountpoint = "legacy";
+            # options."com.sun:auto-snapshot" = "true";
           };
         };
       };
     };
   };
+  disko.tests.extraChecks = ''
+    print("HIIIIIIIIIIIIIIIIIIII")
+    print(machine.succeed("pwd"))
+    print(machine.succeed("ls -FhoA /"))
+  '';
 }
