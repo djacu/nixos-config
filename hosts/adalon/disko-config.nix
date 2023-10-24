@@ -39,29 +39,39 @@
         # postCreateHook = "zfs snapshot zroot@empty";
 
         datasets = {
-          root = {
+          unsafe = {
+            type = "zfs_fs";
+            options.canmount = "off";
+          };
+
+          safe = {
+            type = "zfs_fs";
+            options.canmount = "off";
+          };
+
+          "unsafe/root" = {
             type = "zfs_fs";
             mountpoint = "/";
             options.mountpoint = "legacy";
-            # postCreateHook = ''
-            #   zfs snapshot zroot/root@empty
-            # '';
+            postCreateHook = ''
+              zfs snapshot zroot/unsafe/root@empty
+            '';
           };
 
-          home = {
+          "unsafe/nix" = {
+            type = "zfs_fs";
+            mountpoint = "/nix";
+            options.mountpoint = "legacy";
+          };
+
+          "safe/home" = {
             type = "zfs_fs";
             mountpoint = "/home";
             options.mountpoint = "legacy";
             # options."com.sun:auto-snapshot" = "true";
           };
 
-          nix = {
-            type = "zfs_fs";
-            mountpoint = "/nix";
-            options.mountpoint = "legacy";
-          };
-
-          persist = {
+          "safe/persist" = {
             type = "zfs_fs";
             mountpoint = "/persist";
             options.mountpoint = "legacy";
@@ -75,5 +85,7 @@
     print("HIIIIIIIIIIIIIIIIIIII")
     print(machine.succeed("pwd"))
     print(machine.succeed("ls -FhoA /"))
+    print(machine.succeed("ls -FhoA /nix/store/"))
+    print(machine.succeed("zfs list -t snapshot"))
   '';
 }

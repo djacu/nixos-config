@@ -17,6 +17,10 @@
   boot.supportedFilesystems = ["zfs"];
   boot.zfs.devNodes = lib.mkDefault "/dev/disk/by-id";
 
+  boot.initrd.postDeviceCommands = lib.mkAfter ''
+    zfs rollback -r zroot/unsafe/root@empty
+  '';
+
   environment.systemPackages = with pkgs; [
     alejandra
     vim
