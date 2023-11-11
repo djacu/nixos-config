@@ -40,5 +40,5 @@
   system.stateVersion = "23.11";
 
   users.mutableUsers = false;
-  users.users.root.hashedPassword = "$y$j9T$O74BbKKdx3dYDjAQzsY1Z0$uu/V4AurhJpstdm7.1o4HQvpakZIZapVi5uYICfsOA0";
+  users.users.root.initialHashedPassword = "$y$j9T$O74BbKKdx3dYDjAQzsY1Z0$uu/V4AurhJpstdm7.1o4HQvpakZIZapVi5uYICfsOA0";
 }
