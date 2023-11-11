@@ -40,6 +40,6 @@
   system.stateVersion = "23.11";
 
   users.mutableUsers = false;
-  # users.users.root.initialHashedPassword = "$6$fhV6EyQElEGyqGd7$xYQhGjU/DevSa3WW9kvlu3IDFr9EmxYJwlwbkXlPVblbyXTf8jg3Eom3sfN.tKKZt2w/glDewelmcvhSN7VaH/";
-  users.users.root.initialPassword = "hunter2";
+  users.users.root.initialHashedPassword = "$6$VS5faXtlWOZ2fEv0$IqlguGYC/.M.UkSR1i1vZN7/MRafpNBta7Dg3NZ6/QXWTcHK/vL6iY7Q/2Jk4XmF9OBmjDV2AUvhLqCGM2sCl1";
+  # users.users.root.initialPassword = "hunter2";
 }
