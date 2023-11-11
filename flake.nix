@@ -48,5 +48,7 @@
         inherit nixpkgs;
       };
     };
+
+    checks.x86_64-linux.adalon = self.nixosConfigurations.adalon.config.system.build.installTest;
   };
 }
