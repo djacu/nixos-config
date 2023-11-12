@@ -18,7 +18,7 @@
   boot.zfs.devNodes = lib.mkDefault "/dev/disk/by-id";
 
   boot.initrd.postDeviceCommands = lib.mkAfter ''
-    zfs rollback -r zroot/unsafe/root@empty
+    zfs rollback -r zroot/local/root@empty
   '';
 
   environment.systemPackages = with pkgs; [
