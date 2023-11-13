@@ -18,7 +18,7 @@
   boot.zfs.devNodes = lib.mkDefault "/dev/disk/by-id";
 
   boot.initrd.postDeviceCommands = lib.mkAfter ''
-    zfs rollback -r zroot/unsafe/root@empty
+    zfs rollback -r zroot/local/root@empty
   '';
 
   environment.systemPackages = with pkgs; [
@@ -38,4 +38,7 @@
   time.timeZone = "America/Los_Angeles";
 
   system.stateVersion = "23.11";
+
+  users.mutableUsers = false;
+  users.users.root.initialHashedPassword = "$6$efX.JpKjAey2jrYG$kOt..AuFrPPIVTDncVj7vNkIo4MR/9mYG2SaDV2xpSNDEmk8DRxVNmuMI6hcW.CmD6ZDqdIKCj2MAyHnIdrkl/";
 }

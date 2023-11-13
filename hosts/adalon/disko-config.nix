@@ -39,7 +39,7 @@
         # postCreateHook = "zfs snapshot zroot@empty";
 
         datasets = {
-          unsafe = {
+          local = {
             type = "zfs_fs";
             options.canmount = "off";
           };
@@ -49,16 +49,16 @@
             options.canmount = "off";
           };
 
-          "unsafe/root" = {
+          "local/root" = {
             type = "zfs_fs";
             mountpoint = "/";
             options.mountpoint = "legacy";
             postCreateHook = ''
-              zfs snapshot zroot/unsafe/root@empty
+              zfs snapshot zroot/local/root@empty
             '';
           };
 
-          "unsafe/nix" = {
+          "local/nix" = {
             type = "zfs_fs";
             mountpoint = "/nix";
             options.mountpoint = "legacy";
