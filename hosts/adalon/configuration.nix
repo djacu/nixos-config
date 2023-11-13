@@ -31,6 +31,11 @@
   networking.hostName = "adalon";
   networking.networkmanager.enable = true;
 
+  security.sudo.extraConfig = ''
+    # rollback results in sudo lectures after each reboot
+    Defaults lecture = never
+  '';
+
   services.openssh.enable = true;
 
   services.zfs.autoScrub.enable = true;
