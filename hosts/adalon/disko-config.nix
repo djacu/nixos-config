@@ -34,6 +34,10 @@
           canmount = "off";
           compression = "lz4";
           "com.sun:auto-snapshot" = "false";
+          # encryption does not appear to work in vm test; only use on real system
+          encryption = "aes-256-gcm";
+          keyformat = "passphrase";
+          keylocation = "prompt";
         };
         mountpoint = null;
         # postCreateHook = "zfs snapshot zroot@empty";
