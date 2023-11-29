@@ -16,6 +16,14 @@
                 mountpoint = "/boot";
               };
             };
+            swap = {
+              size = "32G";
+              type = "8200";
+              content = {
+                type = "swap";
+                resumeDevice = true; # resume from hiberation from this device
+              };
+            };
             zfs = {
               size = "100%";
               content = {
@@ -36,7 +44,6 @@
           checksum = "edonr";
           compression = "lz4";
           dnodesize = "auto";
-          "com.sun:auto-snapshot" = "false";
           # encryption does not appear to work in vm test; only use on real system
           encryption = "aes-256-gcm";
           keyformat = "passphrase";
@@ -81,14 +88,12 @@
             type = "zfs_fs";
             mountpoint = "/home";
             options.mountpoint = "/home";
-            options."com.sun:auto-snapshot" = "true";
           };
 
           "safe/persist" = {
             type = "zfs_fs";
             mountpoint = "/persist";
             options.mountpoint = "/persist";
-            options."com.sun:auto-snapshot" = "true";
           };
         };
       };
