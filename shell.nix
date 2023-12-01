@@ -1,9 +1,14 @@
-# Shell for bootstrapping flake-enabled nix and home-manager
-# Enter it through 'nix develop' or (legacy) 'nix-shell'
-{pkgs ? (import ./nixpkgs.nix) {}}: {
-  default = pkgs.mkShell {
-    # Enable experimental features without having to specify the argument
-    NIX_CONFIG = "experimental-features = nix-command flakes";
-    nativeBuildInputs = with pkgs; [nix home-manager git];
-  };
-}
+(
+  import
+  (
+    let
+      lock = builtins.fromJSON (builtins.readFile ./flake.lock);
+    in
+      fetchTarball {
+        url = lock.nodes.flake-compat.locked.url or "https://github.com/edolstra/flake-compat/archive/${lock.nodes.flake-compat.locked.rev}.tar.gz";
+        sha256 = lock.nodes.flake-compat.locked.narHash;
+      }
+  )
+  {src = ./.;}
+)
+.shellNix
