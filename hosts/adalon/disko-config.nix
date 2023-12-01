@@ -16,6 +16,14 @@
                 mountpoint = "/boot";
               };
             };
+            swap = {
+              size = "32G";
+              type = "8200";
+              content = {
+                type = "swap";
+                resumeDevice = true; # resume from hiberation from this device
+              };
+            };
             zfs = {
               size = "100%";
               content = {
@@ -31,16 +39,24 @@
       zroot = {
         type = "zpool";
         rootFsOptions = {
+          acltype = "posixacl";
           canmount = "off";
+          checksum = "edonr";
           compression = "lz4";
-          "com.sun:auto-snapshot" = "false";
+          dnodesize = "auto";
           # encryption does not appear to work in vm test; only use on real system
           encryption = "aes-256-gcm";
           keyformat = "passphrase";
           keylocation = "prompt";
+          normalization = "formD";
+          relatime = "on";
+          xattr = "sa";
         };
         mountpoint = null;
-        # postCreateHook = "zfs snapshot zroot@empty";
+        options = {
+          ashift = "12";
+          autotrim = "on";
+        };
 
         datasets = {
           local = {
@@ -56,7 +72,7 @@
           "local/root" = {
             type = "zfs_fs";
             mountpoint = "/";
-            options.mountpoint = "legacy";
+            options.mountpoint = "/";
             postCreateHook = ''
               zfs snapshot zroot/local/root@empty
             '';
@@ -65,31 +81,22 @@
           "local/nix" = {
             type = "zfs_fs";
             mountpoint = "/nix";
-            options.mountpoint = "legacy";
+            options.mountpoint = "/nix";
           };
 
           "safe/home" = {
             type = "zfs_fs";
             mountpoint = "/home";
-            options.mountpoint = "legacy";
-            # options."com.sun:auto-snapshot" = "true";
+            options.mountpoint = "/home";
           };
 
           "safe/persist" = {
             type = "zfs_fs";
             mountpoint = "/persist";
-            options.mountpoint = "legacy";
-            # options."com.sun:auto-snapshot" = "true";
+            options.mountpoint = "/persist";
           };
         };
       };
     };
   };
-  disko.tests.extraChecks = ''
-    print("HIIIIIIIIIIIIIIIIIIII")
-    print(machine.succeed("pwd"))
-    print(machine.succeed("ls -FhoA /"))
-    print(machine.succeed("ls -FhoA /nix/store/"))
-    print(machine.succeed("zfs list -t snapshot"))
-  '';
 }
