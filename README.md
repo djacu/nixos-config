@@ -5,6 +5,7 @@
 1. `sudo -i`
 1. `nix-shell -p git`
 1. Clone and `cd` to repo
+1. Wipe the disk(s) with wipefs or something similar
 1. `sudo nix run github:nix-community/disko --extra-experimental-features "nix-command flakes" -- --mode disko ./hosts/<host>/disko-config.nix`
 1. The system will ask for the ZFS root encryption password; enter it twice.
 1. Copy the repo to the mounted drive and `cd` to it.
