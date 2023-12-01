@@ -57,16 +57,29 @@
 
     checks.x86_64-linux.adalon = self.nixosConfigurations.adalon.config.system.build.installTest;
 
-    devShells.x86_64-linux.bootstrap = pkgs.mkShell {
-      packages = [
-        (bootstrap "${system}" "adalon")
-      ];
+    devShells.x86_64-linux = (
+      lib.mapAttrs'
+      (
+        name: value:
+          lib.nameValuePair
+          ("bootstrap-" + name)
+          (
+            pkgs.mkShell {
+              packages = [
+                (bootstrap system name)
+              ];
 
-      NIX_CONFIG = ''
-        extra-experimental-features = nix-command flakes
-      '';
-    };
-
-    packages.x86_64-linux.bootstrap = bootstrap "${system}" "adalon";
+              NIX_CONFIG = ''
+                extra-experimental-features = nix-command flakes
+              '';
+            }
+          )
+      )
+      (
+        lib.filterAttrs
+        (name: value: name != "common" && value == "directory")
+        (builtins.readDir ./hosts)
+      )
+    );
   };
 }

@@ -11,11 +11,26 @@
         #!/usr/bin/env bash
         disko --mode disko --dry-run ./hosts/${host}/disko-config.nix
       '';
-    test-echo =
+    bootstrap-disko-partition =
       pkgs.writeShellScriptBin
-      "test-echo"
+      "bootstrap-disko-partition"
       ''
-        echo ${host}
+        #!/usr/bin/env bash
+        disko --mode disko ./hosts/${host}/disko-config.nix
+      '';
+    bootstrap-generate-config =
+      pkgs.writeShellScriptBin
+      "bootstrap-generate-config"
+      ''
+        #!/usr/bin/env bash
+        nixos-generate-config --no-filesystems --root /mnt
+      '';
+    bootstrap-install =
+      pkgs.writeShellScriptBin
+      "bootstrap-install"
+      ''
+        #!/usr/bin/env bash
+        nixos-install --no-root-password --flake .#${host}
       '';
   };
 in
