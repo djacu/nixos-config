@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   nix.settings.trusted-users = ["bakerdn"];
   users.users.bakerdn = {
     isNormalUser = true;
@@ -7,7 +11,13 @@
       "wheel"
       "networkManager"
     ];
+
+    # needed to make zsh the default shell
+    shell = pkgs.zsh;
   };
+
+  # have to enable zsh; HM only configures
+  programs.zsh.enable = true;
 
   home-manager = {
     useGlobalPkgs = true;
