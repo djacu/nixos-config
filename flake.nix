@@ -44,7 +44,7 @@
 
       modules = [
         disko.nixosModules.default
-        nixos-hardware.nixosModules.framework
+        nixos-hardware.nixosModules.framework-11th-gen-intel
         ./hosts/adalon/configuration.nix
         ./users/bakerdn
       ];
