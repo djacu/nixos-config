@@ -3,6 +3,21 @@
   lib,
   disko,
 }: system: host: let
+  disks = let
+    diskoConfig = import ../hosts/${host}/disko-config.nix;
+    disks = (
+      builtins.map
+      (disk: disk.device)
+      (builtins.attrValues diskoConfig.disko.devices.disk)
+    );
+  in
+    lib.concatStringsSep
+    "\n"
+    (
+      builtins.map
+      (disk: "wipefs --all ${disk}")
+      disks
+    );
   scripts = {
     disko-dry-run =
       pkgs.writeShellScriptBin
@@ -10,6 +25,13 @@
       ''
         #!/usr/bin/env bash
         disko --mode disko --dry-run ./hosts/${host}/disko-config.nix
+      '';
+    bootstrap-wipe-disks =
+      pkgs.writeShellScriptBin
+      "bootstrap-wipe-disks"
+      ''
+        #!/usr/bin/env bash
+        ${disks}
       '';
     bootstrap-disko-partition =
       pkgs.writeShellScriptBin
