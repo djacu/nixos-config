@@ -2,6 +2,14 @@
 
 ## Bootstrapping
 
+To load the bootstrap devShell:
+
+```shell
+nix-shell -A devShells.<system>.bootstrap-<host>
+```
+
+There should be `bootstrap-*` scripts available for partitioning. Below is the old way for reference.
+
 1. `sudo -i`
 1. `nix-shell -p git`
 1. Clone and `cd` to repo

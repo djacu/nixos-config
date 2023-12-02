@@ -6,6 +6,7 @@
       url = "github:nix-community/disko/";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flake-compat.url = "github:edolstra/flake-compat";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
@@ -17,6 +18,7 @@
     self,
     nixpkgs,
     disko,
+    flake-compat,
     nixos-hardware,
     nixpkgs-wayland,
     nur,
@@ -31,14 +33,18 @@
       config.allowUnfree = true;
     };
 
+    inherit (pkgs) lib;
+
     system = "x86_64-linux";
+
+    bootstrap = import ./scripts/bootstrap.nix {inherit pkgs lib disko;};
   in {
     nixosConfigurations.adalon = nixpkgs.lib.nixosSystem {
       inherit system;
 
       modules = [
         disko.nixosModules.default
-        nixos-hardware.nixosModules.framework
+        nixos-hardware.nixosModules.framework-11th-gen-intel
         ./hosts/adalon/configuration.nix
         ./users/bakerdn
       ];
@@ -50,5 +56,30 @@
     };
 
     checks.x86_64-linux.adalon = self.nixosConfigurations.adalon.config.system.build.installTest;
+
+    devShells.x86_64-linux = (
+      lib.mapAttrs'
+      (
+        name: value:
+          lib.nameValuePair
+          ("bootstrap-" + name)
+          (
+            pkgs.mkShell {
+              packages = [
+                (bootstrap system name)
+              ];
+
+              NIX_CONFIG = ''
+                extra-experimental-features = nix-command flakes
+              '';
+            }
+          )
+      )
+      (
+        lib.filterAttrs
+        (name: value: name != "common" && value == "directory")
+        (builtins.readDir ./hosts)
+      )
+    );
   };
 }
