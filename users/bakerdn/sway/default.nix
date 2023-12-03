@@ -44,9 +44,10 @@
     bindsym XF86MonBrightnessDown exec "brightnessctl s 5%-; pkill -RTMIN+8 waybar"
   '';
 
-  home.packages = [
-    pkgs.brightnessctl
-    pkgs.swayidle
-    pkgs.swaylock-effects
+  home.packages = with pkgs; [
+    brightnessctl
+    swayidle
+    swaylock-effects
+    wofi
   ];
 }
