@@ -11,6 +11,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-colors.url = "github:misterio77/nix-colors";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
@@ -24,6 +25,7 @@
     disko,
     flake-compat,
     home-manager,
+    nix-colors,
     nixos-hardware,
     nixpkgs-wayland,
     nur,
@@ -58,6 +60,9 @@
       specialArgs = {
         device = "/dev/disk/by-id/nvme-WD_BLACK_SN850_1TB_204178806629";
         inherit nixpkgs;
+        inherit
+          nix-colors
+          ;
       };
     };
 

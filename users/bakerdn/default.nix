@@ -1,6 +1,6 @@
 {
   pkgs,
-  config,
+  nix-colors,
   ...
 }: {
   nix.settings.trusted-users = ["bakerdn"];
@@ -10,6 +10,12 @@
     extraGroups = [
       "wheel"
       "networkManager"
+
+      # needed for sway
+      "input"
+
+      # needed for audio
+      "audio"
     ];
 
     # needed to make zsh the default shell
@@ -19,9 +25,20 @@
   # have to enable zsh; HM only configures
   programs.zsh.enable = true;
 
+  imports = [
+    ./pipewire/system.nix
+    # ./pulseaudio/system.nix
+    ./sway/system.nix
+  ];
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
     users.bakerdn = import ./home.nix;
+    extraSpecialArgs = {
+      inherit
+        nix-colors
+        ;
+    };
   };
 }
