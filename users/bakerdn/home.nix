@@ -2,7 +2,7 @@
   imports = [
     ./fonts
     ./kitty
-    ./git.nix
+    ./git
     ./neovim
     ./pipewire
     ./sway
