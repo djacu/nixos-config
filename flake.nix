@@ -7,6 +7,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-compat.url = "github:edolstra/flake-compat";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-colors.url = "github:misterio77/nix-colors";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
@@ -19,10 +24,12 @@
     nixpkgs,
     disko,
     flake-compat,
+    home-manager,
+    nix-colors,
     nixos-hardware,
     nixpkgs-wayland,
     nur,
-  }: let
+  } @ inputs: let
     overlays = [
       nixpkgs-wayland.overlay
       nur.overlay
@@ -45,13 +52,23 @@
       modules = [
         disko.nixosModules.default
         nixos-hardware.nixosModules.framework-11th-gen-intel
+        home-manager.nixosModules.home-manager
         ./hosts/adalon/configuration.nix
         ./users/bakerdn
+        ({...}: {
+          nixpkgs = {
+            inherit overlays;
+            config.allowUnfree = true;
+          };
+        })
       ];
 
       specialArgs = {
         device = "/dev/disk/by-id/nvme-WD_BLACK_SN850_1TB_204178806629";
-        inherit nixpkgs;
+        inherit
+          nixpkgs
+          nix-colors
+          ;
       };
     };
 
