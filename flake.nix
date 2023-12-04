@@ -18,6 +18,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nur.url = "github:nix-community/NUR";
+    sway-tools.url = "github:smasher164/sway-tools";
   };
   outputs = {
     self,
@@ -29,6 +30,7 @@
     nixos-hardware,
     nixpkgs-wayland,
     nur,
+    sway-tools,
   } @ inputs: let
     overlays = [
       nixpkgs-wayland.overlay
@@ -69,6 +71,7 @@
           nixpkgs
           nix-colors
           ;
+        pw-volume = sway-tools.packages.${system}.pw-volume;
       };
     };
 

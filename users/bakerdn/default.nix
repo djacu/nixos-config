@@ -1,6 +1,7 @@
 {
   pkgs,
   nix-colors,
+  pw-volume,
   ...
 }: {
   nix.settings.trusted-users = ["bakerdn"];
@@ -38,6 +39,7 @@
     extraSpecialArgs = {
       inherit
         nix-colors
+        pw-volume
         ;
     };
   };

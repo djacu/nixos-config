@@ -101,7 +101,7 @@
       "custom/pipewire".format-icons.mute = "";
       "custom/pipewire".format-icons.default = [""];
       "custom/pipewire".tooltip = false;
-      #"custom/pipewire".exec = "pw-volume status";
+      "custom/pipewire".exec = "pw-volume status";
 
       clock.tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
     };

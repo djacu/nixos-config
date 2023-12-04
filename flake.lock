@@ -106,6 +106,21 @@
         "type": "github"
       }
     },
+    "flake-utils_2": {
+      "locked": {
+        "lastModified": 1649676176,
+        "narHash": "sha256-OWKJratjt2RW151VUlJPRALb7OU2S5s+f0vLj4o1bHM=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "a4b154ebbdc88c8498a5c7b01589addc9e9cb678",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -308,6 +323,21 @@
         "type": "github"
       }
     },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1650047169,
+        "narHash": "sha256-lH5x0N6u+N0sQt51TPf15/jDsBuTkfynv2sjBlvq6Fo=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "1a523e4778ab24df74be58bd2f2e7d0853ac0735",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nur": {
       "locked": {
         "lastModified": 1701632688,
@@ -332,7 +362,27 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-wayland": "nixpkgs-wayland",
-        "nur": "nur"
+        "nur": "nur",
+        "sway-tools": "sway-tools"
+      }
+    },
+    "sway-tools": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1675620930,
+        "narHash": "sha256-Q0YUUCTgQKlRIPFhOgsZe1i/IglnMw5jkG9fBvZWb9w=",
+        "owner": "smasher164",
+        "repo": "sway-tools",
+        "rev": "4b9e3a9edd2bf7fa14fd21116eb17707d6a54329",
+        "type": "github"
+      },
+      "original": {
+        "owner": "smasher164",
+        "repo": "sway-tools",
+        "type": "github"
       }
     },
     "systems": {
