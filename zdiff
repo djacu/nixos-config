@@ -1,0 +1,31 @@
+# /srv is possibly need for server services
+# /var/db is possibly need
+
+zfs diff zroot/local/root@empty \
+  | grep -vP '^\+\t\/home' \
+  | grep -vP '^\+\t\/var/log' \
+  | grep -vP '^\+\t\/var/lib/nixos' \
+  | grep -vP '^\+\t\/var/lib/systemd/coredump' \
+  | grep -vP '^\+\t\/etc/NetworkManager/system-connections' \
+  | grep -vP '^\+\t\/bin' \
+  | grep -vP '^\+\t\/boot' \
+  | grep -vP '^\+\t\/dev' \
+  | grep -vP '^\+\t\/etc' \
+  | grep -vP '^\+\t\/nix' \
+  | grep -vP '^\+\t\/persist' \
+  | grep -vP '^\+\t\/proc' \
+  | grep -vP '^\+\t\/root' \
+  | grep -vP '^\+\t\/run' \
+  | grep -vP '^\+\t\/srv' \
+  | grep -vP '^\+\t\/sys' \
+  | grep -vP '^\+\t\/tmp' \
+  | grep -vP '^\+\t\/usr' \
+  | grep -vP '^\+\t\/var/cache' \
+  | grep -vP '^\+\t\/var/db' \
+  | grep -vP '^\+\t\/var/empty' \
+  | grep -vP '^\+\t\/var/lib' \
+  | grep -vP '^\+\t\/var/lock' \
+  | grep -vP '^\+\t\/var/run' \
+  | grep -vP '^\+\t\/var/spool' \
+  | grep -vP '^\+\t\/var/tmp' \
+  | grep -vP '^\+\t\/var/.updated' \

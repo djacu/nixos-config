@@ -11,6 +11,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    impermanence.url = "github:nix-community/impermanence";
     nix-colors.url = "github:misterio77/nix-colors";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
     nixpkgs-wayland = {
@@ -26,6 +27,7 @@
     disko,
     flake-compat,
     home-manager,
+    impermanence,
     nix-colors,
     nixos-hardware,
     nixpkgs-wayland,
@@ -55,6 +57,7 @@
         disko.nixosModules.default
         nixos-hardware.nixosModules.framework-11th-gen-intel
         home-manager.nixosModules.home-manager
+        impermanence.nixosModules.impermanence
         ./hosts/adalon/configuration.nix
         ./users/bakerdn
         ({...}: {
