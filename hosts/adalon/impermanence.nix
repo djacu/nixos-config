@@ -10,5 +10,8 @@
       "/var/tmp"
       "/etc/NetworkManager/system-connections"
     ];
+    files = [
+      "/etc/machine-id"
+    ];
   };
 }
