@@ -5,7 +5,9 @@
   ...
 }: {
   imports = [
+    ../common/fonts.nix
     ../common/nix.nix
+    ../common/japanese.nix
     ./disko-config.nix
     ./hardware-configuration.nix
     ./impermanence.nix
