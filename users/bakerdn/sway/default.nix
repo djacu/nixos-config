@@ -20,12 +20,12 @@
   wayland.windowManager.sway.config.gaps.outer = 4;
 
   # framework resolution
-  wayland.windowManager.sway.config.output = {
-    "BOE 0x095F Unknown" = {
-      mode = "2256x1504@60Hz";
-      scale = "1.00";
-    };
-  };
+  #wayland.windowManager.sway.config.output = {
+  #  "BOE 0x095F Unknown" = {
+  #    mode = "2256x1504@60Hz";
+  #    scale = "1.00";
+  #  };
+  #};
 
   wayland.windowManager.sway.config.keybindings = let
     mod = config.wayland.windowManager.sway.config.modifier;

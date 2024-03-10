@@ -78,6 +78,34 @@
       };
     };
 
+    nixosConfigurations.gildenfire = nixpkgs.lib.nixosSystem {
+      inherit system;
+
+      modules = [
+        disko.nixosModules.default
+        nixos-hardware.nixosModules.lenovo-thinkpad-t480
+        home-manager.nixosModules.home-manager
+        impermanence.nixosModules.impermanence
+        ./hosts/gildenfire/configuration.nix
+        ./users/bakerdn
+        ({...}: {
+          nixpkgs = {
+            inherit overlays;
+            config.allowUnfree = true;
+          };
+        })
+      ];
+
+      specialArgs = {
+        device = "/dev/disk/by-id/nvme-WD_BLACK_SN850_1TB_204178806629";
+        inherit
+          nixpkgs
+          nix-colors
+          ;
+        pw-volume = sway-tools.packages.${system}.pw-volume;
+      };
+    };
+
     checks.x86_64-linux.adalon = self.nixosConfigurations.adalon.config.system.build.installTest;
 
     devShells.x86_64-linux = (
