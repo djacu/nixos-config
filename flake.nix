@@ -58,7 +58,7 @@
         nixos-hardware.nixosModules.framework-11th-gen-intel
         home-manager.nixosModules.home-manager
         impermanence.nixosModules.impermanence
-        ./hosts/adalon/configuration.nix
+        ./hosts/adalon
         ./users/bakerdn
         ({...}: {
           nixpkgs = {
