@@ -10,6 +10,7 @@
     ./pipewire
     ./sway
     ./sway/waybar.nix
+    ./zellij
     ./zsh
   ];
 
